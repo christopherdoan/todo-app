@@ -58,10 +58,10 @@
 
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Btn</a>
                 </li>
                 <li>
-                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">More btn</a>
                 </li>
             </ul>
         </nav>
@@ -77,6 +77,8 @@
                             <span></span>
                             <span></span>
                     </button>
+
+                    <div class = "mx-auto" style="width: 400px;"><h2>MY TO-DO LIST</h2></div>
 
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
@@ -101,6 +103,19 @@
                 </div>
             </nav>
 
+            <div class ="input-group mb-3">
+                    <input type="text" class="form-control" id="myInput" placeholder="Enter task...">
+                <span onclick="newElement()" class="input-group-btn">
+                    <button class = "btn btn-dark">Add</button>
+                </span>
+            </div>
+
+            <ul id= "myUL" class ="list-group">
+                <li class= "list-group-item td"> GYM</li>
+                <li class= "list-group-item td"> PRO-CREATE</li>
+                <li class= "list-group-item td"> MEAL PREP</li>
+                <li class= "list-group-item td"> STUDY</li>
+            </ul>
         </div>
         </div>
     </div>
@@ -129,6 +144,62 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
+
+        var myNodelist = document.getElementsByClassName("td");
+        var i;
+        for (i = 0; i < myNodelist.length; i++) {
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            myNodelist[i].appendChild(span);
+        }
+
+        // Click on a close button to hide the current list item
+        var close = document.getElementsByClassName("close");
+        var i;
+        for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+        }
+
+        // Add a "checked" symbol when clicking on a list item
+        var list = document.querySelector('ul');
+        list.addEventListener('click', function(ev) {
+        if (ev.target.tagName === 'LI') {
+            ev.target.classList.toggle('checked');
+        }
+        }, false);
+
+        // Create a new list item when clicking on the "Add" button
+        function newElement() {
+        var li = document.createElement("li");
+        li.className = "list-group-item td";
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("myUL").appendChild(li);
+        }
+        document.getElementById("myInput").value = "";
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+            }
+        }
+        }
     </script>
 </body>
 
